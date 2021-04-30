@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MODE: PLAY</title>
+
+    <style>
+        body { margin: 0; }
+    </style>
+</head>
+<body>
+    <script src="js/three.js"></script>
+    <script src="js/OrbitControls.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/display.js"></script>
+    <script src="js/astar.js"></script>
+	<script>
+        let tick = 0;
+        function loop() {
+            requestAnimationFrame( loop );
+            render(STATE);
+
+            tick++;
+            
+            if(tick === TICK_DURATION) {
+                tick = 0;
+                if(!STATE.done && MODE === "PLAY") step(STATE);
+            }
+        }
+        
+        init(SIZE);
+        loop();
+	</script>
+</body>
+</html>
