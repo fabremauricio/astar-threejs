@@ -1,6 +1,6 @@
 function step(state) {
   if (state.openList.length) {
-    state.openList.sort((a, b) => a.f - b.f);
+    state.openList.sort((a, b) => a.h - b.h);
 
     const current = state.openList.shift();
     const x = current.x;
@@ -12,7 +12,6 @@ function step(state) {
     console.log(state);
     if (x === state.to.x && y === state.to.y) {
       state.done = true;
-      console.log("done");
       return;
     }
 
@@ -27,19 +26,15 @@ function step(state) {
         const obstacle = state.map[py][px] === 1;
         if (!obstacle) {
           const h = dist(px, py, state.to.x, state.to.y);
-          const g = current.g + 1;
-          const f = g + h;
 
           const candidate = {
             x: px,
             y: py,
             ax: x,
             ay: y,
-            h,
-            g,
-            f,
+            h
           };
-
+	
           const inClosed = state.closedList.find(
             (e) => e.x === px && e.y === py
           );
@@ -55,8 +50,5 @@ function step(state) {
 }
 
 function dist(x1, y1, x2, y2) {
-  //return Math.abs(x1 - x2) + Math.abs(y1 - y2);
   return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
-
-  //return Math.pow(x1+x2+y1+y2,2);
 }
